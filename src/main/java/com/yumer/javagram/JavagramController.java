@@ -23,9 +23,9 @@ public class JavagramController {
 
     @PostMapping("/submitItem")
     public String handleSubmit(@Valid User user, BindingResult result) {
-        if (result.hasErrors()) {
-            return "sign-up";
-        }
+        if (user.getFirstName().equals(user.getLastName()))
+            result.rejectValue("lastName", "", "Last name should not match the first name");
+        if (result.hasErrors()) return "sign-up";
 
         return "result";
     }
